@@ -15,7 +15,7 @@ django-filter==22.1
 django-push-notifications==3.0.0
 django-templated-mail==1.1.1
 djangorestframework==3.14.0
-djangorestframework-jwt==1.11.0
+djangorestframework-jwt
 djangorestframework-simplejwt==4.8.0
 djoser==2.1.0
 firebase==4.0.1
