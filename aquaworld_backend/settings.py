@@ -81,7 +81,7 @@ DATABASES = {
     }
 }
 
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+CORS_ORIGIN_WHITELIST = ['https://aquapwa.netlify.app']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
