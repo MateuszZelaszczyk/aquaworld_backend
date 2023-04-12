@@ -3,7 +3,7 @@ from firebase_admin import credentials
 from firebase_admin import messaging
 from .models import user_push_token
 
-cred = credentials.Certificate('/aquaworld_backend/serviceAccountKey.json')
+cred = credentials.Certificate('./serviceAccountKey.json')
 firebase_admin.initialize_app(cred)
 
 def send_push_notification(user_id, title, message):
