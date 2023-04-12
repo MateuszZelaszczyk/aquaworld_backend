@@ -74,9 +74,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'aquaworld',
-        'USER': 'root',
+        'USER': 'admin',
         'PASSWORD': 'Baza,190',
-        'HOST': '127.0.0.1',
+        'HOST': 'aquaworld.crmvzgh1jqyj.eu-central-1.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
@@ -106,7 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -121,6 +120,7 @@ USE_L10N = True
 USE_TZ = True
 
 
+cred ="/aquaworld_backend/serviceAccountKey.json"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 MEDIA_URL = '/media/'
@@ -142,15 +142,16 @@ REST_FRAMEWORK = {
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
-SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('Bearer',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': True,
-    'AUTH_TOKEN_CLASSES': (
-        'rest_framework_simplejwt.tokens.AccessToken',
-    )
+JWT_AUTH = {
+    'JWT_SECRET_KEY': SECRET_KEY, 
+    'JWT_ALGORITHM': 'HS256',  
+    'JWT_ALLOW_REFRESH': True, 
+    'JWT_EXPIRATION_DELTA': timedelta(minutes=60),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=30), 
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer', 
 }
+
+
 
 DJOSER = {
     'LOGIN_FIELD': 'email',

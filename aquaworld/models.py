@@ -33,7 +33,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
     is_active=models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     objects=UserAccountManager()
-    friends = models.ManyToManyField("self",related_name='friend_of', blank=True, symmetrical=False)
+    friends = models.ManyToManyField("self", related_name='requested_friend',  blank=True, symmetrical=False)
     friend_requests = models.ManyToManyField("self", related_name='requested_friend_of', blank=True, symmetrical=False, through="FriendRequest")
 
     USERNAME_FIELD='email'
@@ -128,3 +128,9 @@ class PostImage(models.Model):
     image = models.ImageField(upload_to="images/",blank=True, null=True)
     def __str__(self):
         return self.post.title
+    
+class  user_push_token(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
+    token =models.CharField (max_length=200, unique=True)
+    def __str__(self):
+        return self.token

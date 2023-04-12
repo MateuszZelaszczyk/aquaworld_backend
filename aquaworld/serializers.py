@@ -2,10 +2,17 @@ from django.db.models import fields
 from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
-from .models import Aquariums, Posts, PostImage, Users, Fish, Plants, Equipments, Ground, Fertilization, Comments
-
+from .models import Aquariums, Posts, PostImage, Users, Fish, Plants, Equipments, Ground, Fertilization, Comments, user_push_token
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 User =get_user_model()
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        refresh = self.get_token(self.user)
+        data['refresh'] = str(refresh)
+        data['access'] = str(refresh.access_token)
 
+        return data
 class UserCreateSerial(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model=User
@@ -95,4 +102,9 @@ class FertilizationSerial(serializers.ModelSerializer):
 class CommentsSerial(serializers.ModelSerializer):
     class Meta:
         model = Comments
+        fields="__all__"
+
+class  TokenSerial(serializers.ModelSerializer):
+    class Meta:
+        model =user_push_token
         fields="__all__"

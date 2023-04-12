@@ -1,18 +1,23 @@
 from django.shortcuts import render
-from .models import Aquariums, Posts, Users, Fish, Plants, Equipments, Fertilization, Ground, Comments, PostImage, Users, FriendRequest
+from .models import Aquariums, Posts, Users, Fish, Plants, Equipments, Fertilization, Ground, Comments, PostImage, Users, FriendRequest, user_push_token
 from django.conf import settings
 from rest_framework.generics import CreateAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializers import AquariumsSerial, PostsSerial, FishSerial, PlantSerial, EquipmentSerial, FertilizationSerial, GroundSerial, UpdateUserSerializer,UpdateUserAvatarSerial, CommentsSerial, UsersSerial
+from .serializers import AquariumsSerial, PostsSerial, FishSerial, PlantSerial, EquipmentSerial, FertilizationSerial, GroundSerial, UpdateUserSerializer,UpdateUserAvatarSerial, CommentsSerial, UsersSerial, TokenSerial, MyTokenObtainPairSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, action
 from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
+from .firebase import send_push_notification
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 User =get_user_model()
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
 
 class AqariumView(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
@@ -37,14 +42,20 @@ class PostView(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     serializer_class= PostsSerial
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        comment=serializer.save(user=self.request.user)
+
 
 class CommentsView(viewsets.ModelViewSet):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerial
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
+        title="Dodano komentarz"
+        comm=serializer.save(user=self.request.user)
+        to_user = comm.post.user
+        if to_user!= self.request.user:
+            message=f"{comm.user.firstname} {comm.user.lastname} skomentował/a Twój post"  
+            print(to_user)
+            send_push_notification(to_user,title, message)
 class FishView(viewsets.ModelViewSet):
     queryset = Fish.objects.all()
     serializer_class = FishSerial
@@ -83,12 +94,21 @@ class GroundView(viewsets.ModelViewSet):
 class UpdateProfileView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UpdateUserSerializer
-class UsersView(viewsets.ModelViewSet):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerial
+
+
+@api_view(["GET"])
+def GetUsers(request):
+    user = request.user
+    friends = request.user.friends.all()
+    queryset = Users.objects.exclude(id=request.user.pk)
+    queryset = queryset.exclude(id__in=[friend.pk for friend in friends])
+    friend_requests = FriendRequest.objects.filter(to_user=request.user)
+    queryset = queryset.exclude(id__in=[friend_request.from_user.pk for friend_request in friend_requests]).values('id','firstname','lastname','location','province','image')
+    return Response(queryset)
 
 class UpdateUserAvatarView(viewsets.ModelViewSet):
     queryset =User.objects.all();
+    
     serializer_class = UpdateUserAvatarSerial
     def get_queryset(self):
         user = User.objects.filter(email=self.request.user)
@@ -136,7 +156,8 @@ def EquipmentsInfo(request,id):
 def Send_request(request, id):
     from_user = request.user
     to_user = Users.objects.get(id=id)
-    print(from_user, to_user)
+    title = "Zaproszenie do znajomych"
+    message = f"{from_user.firstname} {from_user.lastname} wysłał/a Ci zaproszenie do zanjomych"
     if from_user == to_user:
         return Response({"error": "Wysłałeś zaproszenie do siebie."})
     if to_user in from_user.friends.all():
@@ -144,6 +165,7 @@ def Send_request(request, id):
     if FriendRequest.objects.filter(from_user=from_user, to_user=to_user).exists():
         return Response({"error": "Zaprosznie zostało już wysłane"})
     FriendRequest.objects.create(from_user=from_user, to_user=to_user)
+    send_push_notification(to_user,title, message)
     return Response({"success": "Zaproszenie do znajomych zostało wysłane."})
 
 
@@ -151,7 +173,6 @@ def Send_request(request, id):
 def Accept_friend(request, request_id):
     friend_request = FriendRequest.objects.get(id=request_id)
     friend_request.from_user.friends.add(friend_request.to_user)
-    friend_request.to_user.friends.add(friend_request.from_user)
     friend_request.delete()
     return Response({"success": "Zaproszenie zaakceptowane."})
 
@@ -165,7 +186,7 @@ def Reject_request(request, request_id):
 @api_view(["POST"])
 def Remove_friend(request, friend_id):
     friend = Users.objects.get(id=friend_id)
-    if request.user not in friend.friends.all():
+    if friend not in request.user.friends.all():
         return Response({"error": "Ten użytkownik nie jest Twoim znajomym"})
     friend.friends.remove(request.user)
     request.user.friends.remove(friend)
@@ -181,8 +202,29 @@ def Get_friends(request):
 @api_view(["GET"])
 def Get_friend_requests(request):
     user = request.user
-    serializer = UsersSerial([fr.from_user for fr in user.received_requests.all()], many=True)
-    return Response(serializer.data)
+    requests = user.received_requests.all()
+    data = []
+    for request in requests:
+        serializer = UsersSerial(request.from_user, many=False)
+        data.append({
+            "user": serializer.data,
+            "request_id": request.id
+        })
+    return Response(data)
+
+@api_view(["POST"])
+def CheckToken(request):
+        token=request.data.get('token')
+        print(token);
+        if user_push_token.objects.filter(token=token).exists():
+            return Response({"message": "Ten token już istnieje"})
+        if token=="":
+            return Response({"error":"Token is empty"})
+        user_push_token.objects.create(user=request.user, token=request.data.get('token'))
+        return Response({"message":"Dodano token"})
+
+
+        
     
     
 
