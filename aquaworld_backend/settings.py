@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.70.46.122']
+ALLOWED_HOSTS = ['3.125.17.88', 'aquaserwer.com']
 
 
 # Application definition
