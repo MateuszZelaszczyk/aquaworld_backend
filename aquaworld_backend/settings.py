@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.77.71.139','35.157.138.73','https://aquapwa.netlify.app']
+ALLOWED_HOSTS = ['3.77.71.139']
 
 
 # Application definition
