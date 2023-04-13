@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.70.46.122']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -81,7 +81,7 @@ DATABASES = {
     }
 }
 
-CORS_ORIGIN_WHITELIST = ['https://mateuszzelaszczyk.github.io/aquaworld_pwa']
+CORS_ORIGIN_WHITELIST = ['https://mateuszzelaszczyk.github.io']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
