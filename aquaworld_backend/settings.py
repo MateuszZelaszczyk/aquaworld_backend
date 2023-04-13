@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.77.71.139']
+ALLOWED_HOSTS = ['3.77.71.139', 'http://ec2-3-77-71-139.eu-central-1.compute.amazonaws.com']
 
 
 # Application definition
