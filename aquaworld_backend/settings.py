@@ -81,7 +81,7 @@ DATABASES = {
     }
 }
 
-CORS_ORIGIN_WHITELIST = ['https://aquapwa.netlify.app']
+CORS_ORIGIN_WHITELIST = ['https://mateuszzelaszczyk.github.io/aquaworld_pwa']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

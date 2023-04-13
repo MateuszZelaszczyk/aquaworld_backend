@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/aquaworld_pwa/static/css/main.de310617.css",
+    "main.js": "/aquaworld_pwa/static/js/main.306a05cd.js",
+    "static/js/787.56aa6482.chunk.js": "/aquaworld_pwa/static/js/787.56aa6482.chunk.js",
+    "static/media/Fish.jpg": "/aquaworld_pwa/static/media/Fish.5d978f1d0e7fe5779fa4.jpg",
+    "service-worker.js": "/aquaworld_pwa/service-worker.js",
+    "static/media/bg.jpg": "/aquaworld_pwa/static/media/bg.0382e8fafd643f7d1630.jpg",
+    "static/media/TalkFish.png": "/aquaworld_pwa/static/media/TalkFish.765db5dc58917125672c.png",
+    "static/media/Avatar.png": "/aquaworld_pwa/static/media/Avatar.2fda6558cd58b877e14f.png",
+    "static/media/ring.svg": "/aquaworld_pwa/static/media/ring.4a8c77466bc71e9dbb74714db237b4bc.svg",
+    "static/media/aquarium.svg": "/aquaworld_pwa/static/media/aquarium.20c349e1c805178633a4418050c9c56e.svg",
+    "static/media/post.svg": "/aquaworld_pwa/static/media/post.cc4d9c8bf55fea72ae41a4f6f5f48b08.svg",
+    "static/media/edit.svg": "/aquaworld_pwa/static/media/edit.f836da2c24e86687e27f0be563091655.svg",
+    "static/media/send.svg": "/aquaworld_pwa/static/media/send.b4efaf1c698f20b16bac7b8d5f7de6ac.svg",
+    "static/media/delete.svg": "/aquaworld_pwa/static/media/delete.58fb8b956720b41f1530f228af60b266.svg",
+    "static/media/users.svg": "/aquaworld_pwa/static/media/users.fa60e9e1fce982384dee397bf78833d2.svg",
+    "static/media/close.svg": "/aquaworld_pwa/static/media/close.95a2cc216b4113bd0e5663ed67877589.svg",
+    "static/media/search.svg": "/aquaworld_pwa/static/media/search.51b2f30fa609b0bcbd50a6f7d3eda96c.svg",
+    "index.html": "/aquaworld_pwa/index.html",
+    "static/media/check.svg": "/aquaworld_pwa/static/media/check.72da5e393a4c5933cc0ecb8e306dc179.svg",
+    "static/media/menu.svg": "/aquaworld_pwa/static/media/menu.35521da70004411a2a852bab88fd8173.svg",
+    "static/media/DeleteFriend.svg": "/aquaworld_pwa/static/media/DeleteFriend.7f6daa479cc045771dde055a331f6023.svg",
+    "static/media/AddFriend.svg": "/aquaworld_pwa/static/media/AddFriend.d72e8bf5435fb847400f04a912f293e9.svg",
+    "static/media/plus.svg": "/aquaworld_pwa/static/media/plus.336edee210af0e5ee53635eb24c8b36a.svg",
+    "main.de310617.css.map": "/aquaworld_pwa/static/css/main.de310617.css.map",
+    "main.306a05cd.js.map": "/aquaworld_pwa/static/js/main.306a05cd.js.map",
+    "787.56aa6482.chunk.js.map": "/aquaworld_pwa/static/js/787.56aa6482.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.de310617.css",
+    "static/js/main.306a05cd.js"
+  ]
+}
