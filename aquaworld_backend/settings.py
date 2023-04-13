@@ -81,7 +81,7 @@ DATABASES = {
     }
 }
 
-CORS_ORIGIN_WHITELIST = ['https://aquaworld.netlif.app']
+CORS_ORIGIN_WHITELIST = ['https://aquapwa.netlif.app']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
