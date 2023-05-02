@@ -69,8 +69,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'aquaworld_backend.wsgi.application'
 
-DJOSER_DOMAIN = 'https://aquapwa.netlify.com'
-DJOSER_SITE_NAME = 'aquapwa'
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -156,7 +155,8 @@ JWT_AUTH = {
 }
 
 
-
+DOMAIN = 'https://aquapwa.netlify.app'
+SITE_NAME = ('AquaWorld')
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
