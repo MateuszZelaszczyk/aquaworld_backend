@@ -157,6 +157,7 @@ JWT_AUTH = {
 
 
 DJOSER = {
+    'DOMAIN':'aquaworld.netlif.com',
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
