@@ -90,8 +90,8 @@ CORS_ORIGIN_WHITELIST = ["http://localhost:19006" "https://aquapwa.netlify.app"]
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'jnowakm999@gmail.com'
-EMAIL_HOST_PASSWORD = 'nknhcdhbahsuxtul'
+EMAIL_HOST_USER = 'aquaworld@gmail.com'
+EMAIL_HOST_PASSWORD = 'nGZQ3FbCVuy8m7c'
 EMAIL_USE_TLS = True
 
 AUTH_PASSWORD_VALIDATORS = [
