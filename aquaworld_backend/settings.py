@@ -155,7 +155,7 @@ JWT_AUTH = {
 }
 
 
-DOMAIN = 'aquapwa.netlify.app'
+#DOMAIN = 'aquapwa.netlify.app'
 SITE_NAME = ('AquaWorld')
 DJOSER = {
     'LOGIN_FIELD': 'email',
