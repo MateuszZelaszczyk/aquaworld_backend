@@ -9,7 +9,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin,BaseUs
 class UserAccountManager(BaseUserManager):
     def create_user(self, firstname, lastname, email, image=None, phone=None, password=None, location=None, province=None):
         email=self.normalize_email(email)
-        user=self.model(email=email, firstname=firstname, lastname=lastname, phone=phone, image=image, location=location, province=province)
+        user=self.model(email=email, firstname=firstname, lastname=lastname)
         user.set_password(password)
         user.save()
         return user
