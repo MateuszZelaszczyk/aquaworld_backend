@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'aquaworld_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aquaworld',
+        'NAME': os.getenv('BASE_NAME'),
         'USER': 'admin',
-        'PASSWORD': 'Baza,190',
-        'HOST': 'aquaworld.crmvzgh1jqyj.eu-central-1.rds.amazonaws.com',
-        'PORT': '3306',
+        'PASSWORD': os.getenv('BASE_PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
     }
 }
 
@@ -88,9 +88,9 @@ CORS_ORIGIN_WHITELIST = ["http://localhost:19006" "https://aquapwa.netlify.app"]
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'aplikacjamgr99@gmail.com'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('APP_KEY')
 EMAIL_USE_TLS = True
 
