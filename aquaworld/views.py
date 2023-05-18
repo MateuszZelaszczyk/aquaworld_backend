@@ -157,7 +157,7 @@ def Send_request(request, id):
     from_user = request.user
     to_user = Users.objects.get(id=id)
     title = "Zaproszenie do znajomych"
-    message = f"{from_user.firstname} {from_user.lastname} wysłał/a Ci zaproszenie do zanjomych"
+    message = f"{from_user.firstname} {from_user.lastname} wysłał/a Ci zaproszenie do znajomych"
     if from_user == to_user:
         return Response({"error": "Wysłałeś zaproszenie do siebie."})
     if to_user in from_user.friends.all():
